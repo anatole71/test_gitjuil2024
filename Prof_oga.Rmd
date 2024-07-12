@@ -1,0 +1,78 @@
+---
+title: "Untitled"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+#summary(cars)
+library(readxl)
+library(tidyverse)
+oga_cs <- read_excel("C:/Users/Dell/Downloads/oga_cs.xlsx") |>
+  mutate(list_name = "tumors")
+colnames(oga_cs) = c("name","label","list_name")
+oga_cs = oga_cs |> select(3,1,2)
+
+#write.csv(oga_cs, "C:/Users/Dell/Downloads/tumors.csv")
+
+oga_cs1 <- oga_cs %>%
+  mutate(label = name)
+
+#write.csv(oga_cs1, "C:/Users/Dell/Downloads/tumors10.csv")
+head(oga_cs1)
+
+oga_cs2 <- oga_cs %>% select(name, label)
+
+colnames(oga_cs2) = c("AA_key", "AA_nom")
+oga_cs2$AA_nom = gsub(",", "/", oga_cs2$AA_nom)
+head(oga_cs2)
+
+write.csv(oga_cs2, "C:/Users/Dell/Downloads/tumeurr.csv", sep=",")
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+library(readxl)
+District_Bouafle_Mian <- read_excel("C:/Users/Dell/Downloads/District Bouafle_Mian.xlsx") 
+  
+  
+  bouafle = District_Bouafle_Mian %>% filter(`Nbr_Menages` >1)
+
+  #District_Bouafle_Mian$`Nbr de Ménages`
+
+head(bouafle)
+
+#writexl::write_xlsx(bouafle, "C:/Users/Dell/Downloads/Bouafle.xlsx")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+# | **Player**           | **Current Club**                           |
+# |----------------------|--------------------------------------------|
+# | Lionel Messi         | Inter Miami                                |
+# | Cristiano Ronaldo    | Al-Nassr                                   |
+# | Robert Lewandowski   | FC Barcelona                               |
+# | Luka Modric          | Real Madrid                                |
+# | Sergio Ramos         | Sevilla FC                                 |
+# | Luis Suarez          | Grêmio                                     |
+# | N'Golo Kante         | Al-Ittihad                                 |
+# | Andres Iniesta       | Emirates Club                              |
+# | Karim Benzema        | Al-Ittihad                                 |
+# | Gareth Bale          | Retired (last club: Los Angeles FC)        |
+
+```
+
